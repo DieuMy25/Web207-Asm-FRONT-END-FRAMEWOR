@@ -1,0 +1,27 @@
+<style>
+.mau {
+      background-color: rgb(246, 218, 223);
+      
+    }
+
+    .mau:hover {
+      font-weight: bold;
+      color: aliceblue;
+    }
+
+    aside .accordion-item ul li {
+      background-color: rgb(246, 218, 223);
+    }
+</style>
+<div class="card-header m-2 fw-bold">
+    <i class="bi bi-card-list me-2"></i>DANH MỤC
+</div>
+<div class="card-body p-0">
+    <ul class="list-group mb-1 border-danger border" ng-repeat="mh in Subjects">
+        <li class="list-group-item bg-danger-subtle ">
+            <a class="text-decoration-none fs-6 text-black mau" href="#!/tracnghiem/{{mh.Id}}/{{mh.Name}}">
+            {{mh.Name}}
+            </a>
+        </li>
+    </ul>
+</div>

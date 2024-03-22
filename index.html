@@ -1,0 +1,292 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>PS30740-NguyenThiDieuMy-Asm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <script src="https://code.angularjs.org/1.8.2/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="css.css">
+  <!-- <script src="js/bootstrap.min.js"> </script>
+  <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+
+  <style>
+
+  </style>
+</head>
+
+<body ng-app="myAsm">
+  <div class="container" ng-controller="myctrl">
+    <header class=" row fixed-top container m-auto" ng-include="'includes/menu.html'">
+    </header>
+
+    <main ng-view class="row">
+    </main>
+
+  </div>
+  <footer class="footer bg-dark text-white py-5 mt-3" ng-include="'includes/footer.html'">
+  </footer>
+
+</body>
+
+<script>
+  var app = angular.module("myAsm", ["ngRoute"]);
+  app.config(function ($routeProvider) {
+    $routeProvider
+      .when("/", { templateUrl: 'page/Home.html' })
+      .when("/dangky", { templateUrl: 'page/DangKy.html', controller: "myctrl" })
+      .when("/dangnhap", { templateUrl: 'page/DangNhap.html', controller: "myctrl" })
+      .when("/quenpass", { templateUrl: 'page/QuenPass.html', controller: "myctrl" })
+      .when("/doipass", { templateUrl: 'page/DoiPass.html', controller: "myctrl" })
+      .when("/quenpass", { templateUrl: 'page/QuenPass.html', controller: "myctrl" })
+      .when("/capnhat", { templateUrl: 'page/CapNhatThongTin.html', controller: "myctrl" })
+      .when("/gioithieu", { templateUrl: 'page/GioiThieu.html', controller: "myctrl" })
+      .when("/monhoc", { templateUrl: 'page/MonHoc.html', controller: "myctrl" })
+      .when("/lienhe", { templateUrl: 'page/LienHe.html', controller: "myctrl" })
+      .when("/thongtin", { templateUrl: 'page/ThongTin.html', controller: "myctrl" })
+      .when("/tracnghiem/:idMH/:tenMH", { templateUrl: 'page/CauHoi.html', controller: "quizctrl" })
+      .otherwise({ redirectTo: "/", controller: "myctrl" })
+  });
+
+  app.controller("myctrl", function ($scope, $rootScope, $http, $location) {
+    $scope.Subjects = [];
+    $http.get("db/Subjects.js").then(
+      function (d) { $scope.Subjects = d.data; console.log(d.data) },
+      function (e) { alert("Lỗi khi request môn học"); console.log(e); }
+    )
+
+    $scope.pageSize = 6;
+    $scope.start = 0;
+    $scope.sotrang = Math.ceil($scope.Subjects.length / $scope.pageSize);
+    $scope.next1 = function () {
+      if ($scope.start < $scope.Subjects.length - $scope.pageSize) {
+        $scope.start += $scope.pageSize;
+        disabledBtn();
+      }
+    }
+    $scope.prev1 = function () {
+      if ($scope.start > 0) {
+        $scope.start -= $scope.pageSize;
+        disabledBtn();
+      }
+    }
+    $scope.first1 = function () {
+      $scope.start = 0;
+      disabledBtn();
+    }
+    $scope.last1 = function () {
+      $scope.start = ($scope.sotrang - 1) * $scope.pageSize;
+      disabledBtn();
+    }
+    function disabledBtn() {
+      if ($scope.i == 1) {
+        document.getElementById('btnFirst').disabled = true;
+        document.getElementById('btnPrev').disabled = true;
+      } else {
+        document.getElementById('btnFirst').disabled = false;
+        document.getElementById('btnPrev').disabled = false;
+      }
+
+      if ($scope.i == $scope.sotrang) {
+        document.getElementById('btnNext').disabled = true;
+        document.getElementById('btnLast').disabled = true;
+      } else {
+        document.getElementById('btnNext').disabled = false;
+        document.getElementById('btnLast').disabled = false;
+      }
+
+    }
+
+    $scope.Students = [];
+    $scope.Students = JSON.parse(localStorage.getItem('students'));
+    if ($scope.Students == null)
+      $http.get("db/Students.js").then(
+        function (res) {
+          $scope.Students = res.data;
+          localStorage.setItem('students', JSON.stringify(res.data))
+        },
+        function (res) { alert("Lỗi khi lấy students"); }
+      );
+    console.log("Students=", $scope.Students);
+    //Đăng ký
+    $scope.dangKy = function () {
+      $scope.Students.push($scope.Student);
+      localStorage.setItem('students', JSON.stringify($scope.Students));
+      alert("Đã đăng ký thành công tài khoản " + $scope.Student.username); $location.path('/');
+    }
+    //Đăng nhập
+    $rootScope.username = sessionStorage.getItem('username');
+    console.log($rootScope.username);
+
+    $scope.dangnhap = function () {
+      // $rootScope.username = "";
+      u = $scope.u;
+      p = $scope.p;
+      index=-1;
+      index = $scope.Students.findIndex(st => u==st.username && st.password == p)
+      // console.log($scope.Students[index].username);
+      if (index >= 0) {
+        $rootScope.username = u;
+        sessionStorage.setItem('username', u);
+          if ($scope.Students[index].username == u) {
+            // Lưu vào sessionStorage
+            $rootScope.taikhoan = $scope.Students[index];
+            sessionStorage.setItem('taikhoan', JSON.stringify($scope.Students[index]));
+            //Lấy giá trị từ sessionStorage
+            $rootScope.taikhoan = JSON.parse(sessionStorage.getItem('taikhoan'));
+            // console.log($rootScope.hoten);
+          }
+        
+        alert("Đăng nhập thành công!");
+        $location.path('/');
+      } else {
+        console.log("Đăng nhập không thành công");
+        alert("Đăng nhập không thành công");
+      }
+
+    }
+
+    //Quên pass
+    $scope.quenpass = function () {
+      const user = $scope.Students.find(s => s.email === $scope.email);
+      if (user) {
+        alert("Mật khẩu bạn là : " + user.password);
+      } else{
+        alert("Không có ai có email là " + $scope.email);
+      } 
+    }
+
+    //Đổi pass
+    $scope.doipass = function () {
+      user = $scope.Students.find(s => s.username == $rootScope.username);
+      if (user == null) { alert("Không có username trong db"); return; }
+      if (user.password != $scope.pass_old) { alert("Pass cũ không đúng"); return; }
+      if ($scope.pass_new1 != $scope.pass_new2) { alert("2 Pass mới không giống"); return; }
+      user.password = $scope.pass_new1
+      localStorage.setItem('students', JSON.stringify($scope.Students));
+      alert(" Đổi mật khẩu thành công");
+      $location.path('/');
+    };
+
+    //Thoát
+    $scope.thoat = function () {
+      $rootScope.username = null;
+      // localStorage.clear();
+      sessionStorage.removeItem("username");
+      $location.path('/');
+    }
+    $rootScope.totalMarks = 0;
+
+  });
+
+
+
+
+  app.controller("quizctrl", function ($scope, $http, $routeParams, $interval) {
+    alert("Nhấn OK để bắt đầu làm bài, khi bạn sẵn sàng!")
+    $scope.idMH = $routeParams.idMH;
+    $scope.tenMH = $routeParams.tenMH;
+    $scope.caccauhoi = [];
+    $http.get("db/Quizs/" + $scope.idMH + ".js").then(
+      function (d) { $scope.caccauhoi = d.data; console.log(d.data) },
+      function (e) { alert("Lỗi khi request các câu hỏi"); console.log(e); }
+    )
+
+    $scope.start = 0;
+    $scope.pageSize = 1;
+    $scope.next = function () {
+      if ($scope.start < $scope.caccauhoi.length - $scope.pageSize) {
+        $scope.start += $scope.pageSize;
+        disabledBtn();
+      }
+    }
+    $scope.prev = function () {
+      if ($scope.start > 0) {
+        $scope.start -= $scope.pageSize;
+        disabledBtn();
+      }
+    }
+    $scope.firsr = function () {
+      $scope.start = 0;
+      disabledBtn();
+    }
+    $scope.last = function () {
+      sotrang = Math.ceil($scope.caccauhoi.length / $scope.pageSize);
+      $scope.start = (sotrang - 1) * $scope.pageSize;
+      disabledBtn();
+    }
+    function disabledBtn() {
+      if ($scope.i == 1) {
+        document.getElementById('btnFirst').disabled = true;
+        document.getElementById('btnPrev').disabled = true;
+      } else {
+        document.getElementById('btnFirst').disabled = false;
+        document.getElementById('btnPrev').disabled = false;
+      }
+
+      if ($scope.i == $scope.sotrang) {
+        document.getElementById('btnNext').disabled = true;
+        document.getElementById('btnLast').disabled = true;
+      } else {
+        document.getElementById('btnNext').disabled = false;
+        document.getElementById('btnLast').disabled = false;
+      }
+    }
+
+    $scope.diem = 0;
+    $scope.sogiay = 0;
+    $interval(function () { $scope.sogiay++ }, 1000);
+
+    $scope.kiemtraPA = function (idPA, idPADung, diem) {
+      if (idPA == idPADung) {
+        $scope.diem += diem;
+      }
+    }
+
+
+
+
+    console.log($routeParams.totalMarks)
+    $scope.inProgess = false;
+    $scope.ketthuc = function (what) {
+      if ($scope.inProgess === what) {
+        $scope.inProgess = !what;
+      } else {
+        $scope.inProgess = what;
+      }
+      for (var i = 0; i < $scope.caccauhoi.length; i++) {
+        $scope.totalMarks += $scope.caccauhoi[i].Marks;
+        $scope.phut = Math.floor($scope.sogiay / 60);
+        $scope.giay = parseInt($scope.sogiay % 60);
+        $scope.tyle = $scope.diem / $scope.totalMarks;
+        $scope.tyle = $scope.tyle.toFixed(3)*100; 
+          
+      }
+    }
+
+
+
+  });
+  // app.directive(function () {
+  //   return {
+  //     restrict: 'AE',
+  //     scope: {},
+  //     templateUrl: 'page/KetQua.html',
+  //     link: function (scope, elem, attrs) {
+  //       scope.start = function () {
+  //         scope.inProgess = true;
+  //       }
+  //       scope.reset = function () {
+  //         scope.inProgess = false;
+  //       }
+  //       scope.reset();
+  //     }
+  //   }
+  // });
+</script>
+
+</html>

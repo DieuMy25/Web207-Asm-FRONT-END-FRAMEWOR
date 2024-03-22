@@ -1,0 +1,20 @@
+<form name="frmQP">
+<div class="card border-primary m-5 border-2">
+    <div class="card-header bg-primary text-white p-1 h4">
+        Quên mật khẩu
+    </div>
+    <div class="card-body">
+        <form name="frmquenpass">
+            <div class="mb-3">
+                <label>Nhập địa chỉ email đã đăng ký</label>
+                <input ng-model="email" name="email" type="email" class="form-control bg-success-subtle p-2">
+                <em class="text-danger" ng-show="frmQP.email.$invalid">Nhập email chưa đúng</em>
+            </div>
+            <button ng-click="quenpass()" type="button" class="btn btn-primary w-25">Lấy lại mật khẩu</button>
+        </form>
+    </div>
+    <div class="card-footer text-muted text-center">
+        <p>Quay lại <a href="#!dangnhap">Đăng nhập</a></p>
+    </div>
+</div>
+</form>

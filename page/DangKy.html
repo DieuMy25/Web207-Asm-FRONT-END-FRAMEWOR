@@ -1,0 +1,87 @@
+<style>
+    h2 {
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 50px;
+        color: pink;
+        letter-spacing: 3px;
+        text-shadow: 4px 4px 2px rgb(255, 60, 0);
+        text-align: center;
+    }
+</style>
+<form name="frmDK" class="row">
+    <article class="col-7 row m-0 bg-dange" style="min-height: 500px;">
+        <h2 class=" text-center">Đăng ký</h2>
+        <div class="col-6 mb-2">
+            <label class="form-label">Tên đăng nhập</label>
+            <span class="text-danger">*</span>
+            <input required ng-minlength="3" ng-model="Student.username" name="username" type="text"
+                class="form-control bg-success-subtle border border-success-subtle" placeholder="Nhập tên đăng nhập">
+            <em class="text-danger" ng-show="frmDK.username.$invalid">Tên đăng nhập phải lớn hơn hoặc bằng 3 ký tự!</em>
+        </div>
+        <div class="col-6 mb-2">
+            <label class="form-label">Họ và tên</label>
+            <span class="text-danger">*</span>
+            <input required ng-model="Student.fullname" name="fullname" type="text"
+                class="form-control bg-success-subtle border border-success-subtle" placeholder="Nhập họ và tên">
+            <em class="text-danger" ng-show="frmDK.fullname.$invalid">Vui lòng nhập họ tên!</em>
+        </div>
+        <div class="col-6 mb-2">
+            <label class="form-label">Email</label>
+            <span class="text-danger">*</span>
+            <div class="input-group">
+                <input required ng-model="Student.email" name="email" type="email"
+                    class="form-control bg-success-subtle border border-success-subtle" placeholder="Nhập Email">
+                <span class="input-group-text bg-success-subtle border border-success-subtle">@gmail.com</span>
+            </div>
+            <em class="text-danger" ng-show="frmDK.email.$invalid">Vui lòng nhập Email!</em>
+        </div>
+        <div class="col-6 mb-2">
+            <label class="form-label">Mật khẩu</label>
+            <span class="text-danger">*</span>
+            <input required ng-minlength="6" ng-model="Student.password" name="password" type="password"
+                class="form-control bg-success-subtle border border-success-subtle" placeholder="Nhập mật khẩu">
+            <em class="text-danger" ng-show="frmDK.password.$invalid">Vui lòng nhập mật khẩu ít nhất 6 ký tự!</em>
+        </div>
+        <div class="col-6 mb-2">
+            <label class="form-label">Giới tính</label>
+            <span class="text-danger">*</span>
+            <select required ng-model="Student.gender" name="gender"
+                class="form-select bg-success-subtle border border-success-subtle">
+                <option value="true">Nam</option>
+                <option value="false">Nữ</option>
+            </select>
+            <em class="text-danger" ng-show="frmDK.gender.$invalid">Vui lòng chọn giới tính!</em>
+        </div>
+        <div class="col-6">
+            <label class="form-label">Ngày sinh</label>
+            <span class="text-danger">*</span>
+            <input required ng-model="Student.birthday" name="birthday" type="date"
+                class="form-control bg-success-subtle border border-success-subtle" placeholder="Chọn ngày sinh">
+            <em class="text-danger" ng-show="frmDK.birthday.$invalid">Vui lòng nhập ngày sinh!</em>
+        </div>
+        <div class="col-6">
+            <label class="form-label">Học phí</label>
+            <span class="text-danger">*</span>
+            <input required ng-model="Student.schoolFee" min="0" name="schoolfee" type="number"
+                class="form-control bg-success-subtle border border-success-subtle" placeholder="Nhập học phí">
+            <em class="text-danger" ng-show="frmDK.schoolfee.$invalid">Vui lòng nhập học phí!</em>
+        </div>
+        <div class="col-6">
+            <label class="form-label">Điểm số</label>
+            <span class="text-danger">*</span>
+            <input required ng-model="Student.marks" name="mark" type="number" min="0" max="10"
+                class="form-control bg-success-subtle border border-success-subtle" placeholder="">
+            <em class="text-danger" ng-show="frmDK.mark.$invalid">Vui lòng nhập điểm từ 0 đến 10 !</em>
+        </div>
+        <div class="col-12 my-3 me-5 float-end text-end">
+            <button type="button" class="btn btn-pink me-4" ng-click="dangKy()" ng-disabled="frmDK.$invalid">
+                Đăng ký</button>
+            <button type="button" class="btn btn-cancel px-4">Hủy</button>
+        </div>
+
+    </article>
+    <aside class="col-5 bg-inf" style="padding-top: 100px;">
+        <img src="/PS30740-NguyenThiDieuMy-Asm/images/signup_preview_rev_1.png" class="w-100 mt-5">
+    </aside>
+
+</form>

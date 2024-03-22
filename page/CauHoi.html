@@ -1,0 +1,115 @@
+<style>
+  .accordion-button {
+    background-color: pink;
+  }
+
+  .accordion-button:hover {
+    background-color: rgb(182, 51, 73);
+  }
+
+  .accordion-item ul li {
+    background-color: rgb(246, 218, 223);
+  }
+
+  .mh {
+    min-height: 400px;
+  }
+
+  .mauCH {
+    color: rgb(161, 6, 6);
+  }
+
+  h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: green;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px gray;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .bold-text {
+    font-weight: bold;
+  }
+</style>
+<!-- <div class="container mt-5 mh" >
+  <button class="btn btn-primary" ng-click="start()">Bắt đầu
+  </button>
+</div> -->
+<!-- ng-show="inProgess" -->
+<div class="card col-12 bg-thi mh" ng-show="!inProgess">
+  <div class="card-header">
+    <em class="fs-4 fw-bold">{{tenMH}}</em>
+    <span class="badge text-bg-info float-end mt-2">
+      <i class="bi bi-clock-fill me-2"></i>{{sogiay}}</span>
+  </div>
+  <div class="card-body mh" ng-repeat="ch in caccauhoi | limitTo:pageSize:start">
+    <p class="fs-3 fw-bold mauCH">Câu hỏi {{start+1}}: {{ch.Text}}</p>
+    <hr>
+    <div class="form-check fs-3 " ng-repeat="p in ch.Answers">
+      <input class="form-check-input" type="radio" name="cauhoi_{{ch.Id}}" ng-model="answer" value="{{p.Id}}"
+        ng-click="kiemtraPA(p.Id, ch.AnswerId, ch.Marks)">
+      <label class="form-check-label">{{p.Text}}</label>
+    </div>
+
+
+    <!-- <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Bẻ văn bản
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Khối văn bản
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Không đối xứng
+            </label>
+          </div>
+        </div> -->
+
+  </div>
+  <div class="card-footer text-muted">
+    <div class="col-12 text-center ">
+      <button type="button" id="btnFirst" ng-click="firsr()" class="btn btn-outline-danger me-3">
+        <i class="bi bi-box-arrow-in-left fs-3"></i>
+      </button>
+      <button type="button" id="btnPrev" ng-click="prev()" class="btn btn-outline-danger me-3">
+        <i class="bi bi-chevron-double-left fs-3"></i>
+      </button>
+      <button type="button" id="btnNext" ng-click="next()" class="btn btn-outline-danger me-3">
+        <i class="bi bi-chevron-double-right fs-3"></i>
+      </button>
+      <button type="button" id="btnLast" ng-click="last()" class="btn btn-outline-danger ">
+        <i class="bi bi-box-arrow-in-right fs-3"></i>
+      </button>
+    </div>
+    <!-- Điểm: {{diem}} -->
+
+  </div>
+  <div class="card-footer text-end ">
+    <button type="button" ng-click="ketthuc(inProgess)" class="btn btn-success fs-5 me-3">
+      Kết thúc</button>
+
+    <a href="#!monhoc" type="button" ng-click="" class="btn btn-danger fs-5">
+      Thoát</a>
+  </div>
+</div>
+<div class="card" ng-show="inProgess" style="min-height: 300px;">
+  <div class="card-header">
+    <h4 class="mt-3">Kết quả bài làm của bạn</h4>
+  </div>
+  <div class="card-body">
+    <p class="fs-3 fw-bold">Điểm: <label class="text-danger">{{diem}}/{{totalMarks}}</label></b>
+    <p class="fs-3 fw-bold">Tỷ lệ: <label class="text-danger">{{tyle}} %</label></b>
+    <p class="fs-3 fw-bold">Thời gian: <label class="text-danger">{{phut}} phút {{giay}} giây</label></b>
+  </div>
+</div>
+
+<!-- Điểm: {{score}} -->

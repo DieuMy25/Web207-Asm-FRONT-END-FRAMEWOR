@@ -1,0 +1,71 @@
+<style>
+  
+  .mh {
+    height: 300px;
+  }
+  h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: green;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px gray;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+</style>
+<div ng-if="username==null" style="min-height: 400px;">
+  <div class="alert alert-success p-4 mt-5">
+    <h3>BẠN CẦN ĐĂNG NHẬP ĐỂ XEM DANH SÁCH MÔN HỌC VÀ LÀM BÀI TRẮC NGHIỆM <i class="bi bi-emoji-heart-eyes"></i></h3>
+    <a href="#!dangnhap" class="btn btn-success text-danger fw-bold fs-5">Đăng nhập</a>
+  </div>
+</div>
+<article class="col-9 ms-0 border border-danger border-3 " ng-if="username!=null">
+  <h4 class="mt-3">Danh mục môn thi</h4>
+  <div class="row row-cols-1 row-cols-md-4 g-4 p-4">
+    <div class="card border border-danger col-12 col-md-6 text-center "
+      ng-repeat=" mh in Subjects|limitTo:pageSize:start">
+      <div class="card-body ">
+        <a href="#!/tracnghiem/{{mh.Id}}/{{mh.Name}}">
+          <img src="/PS30740-NguyenThiDieuMy-Asm/images/logos/{{mh.Id}}.jpg" class="w-50"></a>
+      </div>
+      <div class="card-footer">
+        {{mh.Name|uppercase}}
+      </div>
+    </div>
+    <!-- <div class="card border border-danger col-12 col-md-6 text-center ">
+            <a href="http://127.0.0.1:5500/PS30740-NguyenThiDieuMy-Asm/page/exam.html">
+            <div class="card-body ">
+              <img src="/PS30740-NguyenThiDieuMy-Asm/images/logos/WEBU.jpg" class="w-50">
+            </div></a>
+            <div class="card-footer">
+              Xây dựng trang web
+            </div>
+          </div>
+          <div class="card border border-danger col-12 col-md-6 text-center">
+            <div class="card-body ">
+              <img src="/PS30740-NguyenThiDieuMy-Asm/images/logos/DBBS.png" class="w-50">
+            </div>
+            <div class="card-footer">
+              Cơ sở dữ liệu
+            </div>
+          </div>
+          <div class="card border border-danger col-12 col-md-6 text-center">
+            <div class="card-body ">
+              <img src="/PS30740-NguyenThiDieuMy-Asm/images/logos/DBAV.png" class="w-50">
+            </div>
+            <div class="card-footer">
+              SQL Server
+            </div>
+          </div> -->
+    <div class="mt-4 text-center w-100">
+      <button type="button" id="btnFirst" ng-click="firsr1()" class="btn btn-outline-danger me-3"><i class="bi bi-arrow-bar-up fs-3"></i></button>
+      <button type="button" id="btnNext" ng-click="prev1()" class="btn btn-outline-danger me-3"><i class="bi bi-arrow-bar-left fs-3"></i></button>
+      <button type="button" id="btnPrev" ng-click="next1()" class="btn btn-outline-danger me-3"><i class="bi bi-arrow-bar-right fs-3"></i></button>
+      <button type="button" id="btnLast" ng-click="last1()" class="btn btn-outline-danger "><i class="bi bi-arrow-bar-down fs-3"></i></button>
+    </div>
+  </div>
+</article>
+<aside ng-if="username!=null" class="col-3 card bg-dm" ng-include="'includes/listmonhoc.html'">
+
+</aside>

@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Thông tin tài khoản</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Họ và tên: <em class="fw-bold text-danger">{{taikhoan.fullname}}</em></h5>
+            <ul class="list-group">
+              <li class="list-group-item"><h5>Tên đăng nhập: <em class="fw-bold text-danger">{{taikhoan.username}}</em></h5></li>
+              <li class="list-group-item"><h5>Email: <em class="fw-bold text-danger">{{taikhoan.email}}</em></h5></li>
+              <li class="list-group-item" ng-if="taikhoan.gender"><h5>Giới tính: <em class="fw-bold text-danger">Nam</em></h5></li>
+              <li class="list-group-item" ng-if="!taikhoan.gender"><h5>Giới tính: <em class="fw-bold text-danger">Nữ</em></h5></li>
+              <li class="list-group-item"><h5>Ngày sinh: <em class="fw-bold text-danger">{{taikhoan.birthday| date:'yyyy/MM/dd'}}</em></h5></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>Thành tích</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Số lần làm bài thi: </h5>
+            <h5 class="card-title">Điểm trung bình: </h5>
+            <h5 class="card-title">Thời gian trung bình: </h5>
+            <h5 class="card-title">Số môn học: </h5>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,46 @@
+<style>
+  h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 50px;
+    color: pink;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 2px rgb(255, 60, 0);
+    text-align: center;
+}
+</style>
+<form name="frmDN" class="row">
+  <article class="col-7 m-0">
+    <h2 class=" mt-3" style="margin-left: 30px;">Đăng nhập</h2>
+    <div class="col-8 my-3 me-5 float-end">
+      <label class="form-label">Tên đăng nhập</label>
+      <span class="text-danger">*</span>
+      <input ng-model="u" required name="username" type="text" class="form-control bg-success-subtle border border-success-subtle"
+        placeholder="Nhập tên đăng nhập">
+        <em class="text-danger" ng-show="frmDN.username.$invalid">Chưa nhập tên đăng nhập</em>
+    </div>
+    <div class="col-8 my-3 me-5 float-end">
+      <label class="form-label">Mật khẩu</label>
+      <span class="text-danger">*</span>
+      <input ng-model="p" required name="password"  type="password" placeholder="Nhập mật khẩu"
+        class="form-control bg-success-subtle border border-success-subtle">
+        <em class="text-danger" ng-show="frmDN.password.$invalid">Chưa nhập mật khẩu</em>
+    </div>
+    <div class="col-8 my-3 me-5 float-end">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
+          Hiện mật khẩu
+        </label>
+        <a href="#!quenpass" class="float-end">Quên mật khẩu</a>
+      </div>
+    </div>
+    <div class="col-8 my-3 me-5 float-end text-end">
+      <button ng-click="dangnhap()" type="button" class="btn btn-pink me-4" ng-disabled="frmDN.$invalid">Đăng nhập</button>
+      <button type="button" class="btn btn-cancel px-4">Hủy</button>
+    </div>
+
+  </article>
+  <aside class="col-5">
+    <img src="/PS30740-NguyenThiDieuMy-Asm/images/login_preview_rev_1 (1).png" class="w-100 mt-5">
+  </aside>
+</form>

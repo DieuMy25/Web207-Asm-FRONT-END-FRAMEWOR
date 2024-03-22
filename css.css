@@ -1,0 +1,59 @@
+
+.container>header {
+    height: 120px;
+    background: white;
+}
+
+.container>main {
+    min-height: 300px;
+    display: flex;
+    padding-top: 120px;
+}
+
+.container>main>article h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 50px;
+    color: pink;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 2px rgb(255, 60, 0);
+    text-align: center;
+}
+
+.container>header>.logo>img {
+    height: 120px;
+}
+
+.container>header ul li>a {
+    font-size: 18px;
+    color: green;
+    font-weight: bold;
+}
+
+.container>header ul li>a:hover {
+    color: rgb(102, 12, 84);
+}
+
+
+
+.bg-thi {
+    background-color: rgb(214, 239, 214);
+    border: 3px solid #f7277a;
+    border-radius: 10px;
+}
+.btn-pink {
+    background-color: pink;
+}
+
+.btn-pink:hover {
+    background-color: rgb(237, 72, 99);
+    color: aliceblue;
+}
+
+.btn-cancel {
+    background-color: darkgray;
+}
+
+.btn-cancel:hover {
+    background-color: rgb(84, 83, 83);
+    color: aliceblue;
+}
